@@ -27,11 +27,14 @@ article {
   article h2 {
     transition: all 0.3s ease;
     transform-origin: 0 0 0; }
+  article .tasks {
+    white-space: normal;
+    overflow-y: scroll; }
 
 .yesterday {
   background-color: #877f73; }
 
-#today {
+.today {
   background: #30c2a7; }
 
 .tomorrow {
@@ -56,12 +59,20 @@ article:not(.selected) {
   article:not(.selected) h2 {
     transform: rotate(90deg) translateY(-1.5em);
     white-space: nowrap; }
-  article:not(.selected) p {
+  article:not(.selected) .tasks {
     display: none; }
+  .selected + article:not(.selected) .tasks {
+    display: block;
+    width: 100%; }
+
+article .tasks {
+  height: 28em; }
 
 .selected {
   height: 39rem;
   width: 37.8rem; }
+  .selected h2, .selected .tasks {
+    color: rgba(0, 0, 0, 0.6); }
   .selected + article:not(.selected) {
     width: 12rem;
     border-top: 0.5rem solid rgba(0, 0, 0, 0.2);

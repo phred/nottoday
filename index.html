@@ -4,8 +4,8 @@
     <title>not today</title>
     <link rel="stylesheet" href="styles.css"  media="screen" charset="utf-8">
   </head>
-  <body>
-    <section>
+  <body id="app">
+    <!-- <section id="runlist">
       <article class="yesterday">
         <h2>yesterday</h2>
       </article>
@@ -33,13 +33,90 @@
           and this should be the contenteditable stuff
         </p>
       </article>
-    </section>
-    <script src="zepto.js"></script>
-    <script charset="utf-8">
-      $('article').click(function (e) {
-        $('.selected').removeClass('selected');
-        $(this).addClass('selected');
+    </section> -->
+    <script src="react-0.10.0/build/JSXTransformer.js"></script>
+    <script src="react-0.10.0/build/react.js"></script>
+    <script src="Immutable.min.js"></script>
+    <!--<script src="zepto.js"></script>-->
+    <script type="text/jsx">
+      /** @jsx React.DOM */
+
+      var Scratchpad = React.createClass({
+        handleClick: function () {
+          this.props.onClick(this.props.name);
+        },
+        notifyEdit: function (e) {
+          this.props.onEdit({pad: this.props.name, content: e.target.innerHTML});
+          e.preventDefault();
+        },
+        shouldComponentUpdate: function (newProps) {
+          return newProps.content !== this.refs.editor.getDOMNode().innerHTML || newProps.selected != this.props.selected;
+        },
+        render: function () {
+          return <article className={[this.props.className, this.props.selected ? 'selected' : ''].join(' ')} onClick={this.handleClick}>
+            <h2>{this.props.name}</h2>
+            <div ref="editor" className="tasks" contentEditable={this.props.selected} dangerouslySetInnerHTML={{__html: this.props.content}} onInput={this.notifyEdit}/>
+          </article>;
+        }
+      })
+      var App = React.createClass({
+        getInitialState: function () {
+          var makePads = function (pads) {
+            return pads.map(function (e) {return {name: e, class: e.replace(/ /g, ''), content: localStorage.getItem(e) || ''}});
+          }
+
+          return {
+            selected: localStorage.getItem('selected') || 'today',
+            pads: makePads([
+              'yesterday', 'today', 'tomorrow', 'next week', 'next pay', 'next month', 'much later'
+            ])
+          }
+        },
+        onEdit: function (evt) {
+          var _pads = this.state.pads;
+          var updatedPads = function (name, content) {
+            var updated = [];
+            for (var pad in _pads) {
+              if (_pads[pad].name == name) {
+                updated.push({
+                  name: _pads[pad].name,
+                  class: _pads[pad].class,
+                  content: content
+                });
+                localStorage.setItem(name, content);
+              }
+              else {
+                updated.push(_pads[pad]);
+              }
+            }
+            return updated;
+          }
+
+          this.setState({pads: updatedPads(evt.pad, evt.content)});
+        },
+        selectArticle: function (padName) {
+          this.setState({selected: padName});
+          localStorage.setItem('selected', padName);
+        },
+        render: function () {
+          var _this = this;
+          var selectedPad = this.state.selected;
+
+          return <section>{
+            this.state.pads.map(function (pad) {
+              return <Scratchpad key={pad.class}
+                                                  name={pad.name}
+                                                  className={pad.class}
+                                                  selected={pad.name == selectedPad}
+                                                  content={pad.content}
+                                                  onClick={_this.selectArticle}
+                                                  onEdit={_this.onEdit}
+                                                  />
+            })
+          }</section>;
+        }
       });
+      React.renderComponent(<App/>, document.getElementById('app'));
     </script>
   </body>
 </html>
