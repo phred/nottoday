@@ -1,0 +1,72 @@
+:root {
+  background-color: #877f73;
+  color: rgba(0, 0, 0, 0.2);
+  font-family: "Fira Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  height: 100%;
+  overflow: hidden; }
+
+section {
+  padding-top: 120px;
+  line-height: 42rem;
+  margin-top: -6rem;
+  white-space: nowrap;
+  overflow-x: scroll; }
+
+article {
+  border-top: 0.5rem solid rgba(0, 0, 0, 0.2);
+  width: 12rem;
+  display: inline-block;
+  height: 30rem;
+  vertical-align: bottom;
+  transition: all 0.2s ease;
+  padding: 5px;
+  line-height: 24px; }
+  article:hover {
+    background-color: #51d4bc !important;
+    margin-bottom: 10px; }
+  article h2 {
+    transition: all 0.3s ease;
+    transform-origin: 0 0 0; }
+
+.yesterday {
+  background-color: #877f73; }
+
+#today {
+  background: #30c2a7; }
+
+.tomorrow {
+  background-color: #62968d;
+  height: 33rem; }
+
+.later {
+  background-color: #abccb8;
+  height: 33rem; }
+  .later + .later {
+    height: 24rem; }
+
+.muchlater {
+  background-color: #d4cfb6;
+  height: 24rem;
+  width: 6rem; }
+
+article:not(.selected) {
+  width: 3rem;
+  padding-top: 2rem;
+  cursor: pointer; }
+  article:not(.selected) h2 {
+    transform: rotate(90deg) translateY(-1.5em);
+    white-space: nowrap; }
+  article:not(.selected) p {
+    display: none; }
+
+.selected {
+  height: 39rem;
+  width: 37.8rem; }
+  .selected + article:not(.selected) {
+    width: 12rem;
+    border-top: 0.5rem solid rgba(0, 0, 0, 0.2);
+    padding-top: 0;
+    cursor: pointer; }
+    .selected + article:not(.selected) h2 {
+      transform: none;
+      white-space: nowrap; }

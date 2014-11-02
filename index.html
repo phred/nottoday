@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>not today</title>
+    <link rel="stylesheet" href="styles.css"  media="screen" charset="utf-8">
+  </head>
+  <body>
+    <section>
+      <article class="yesterday">
+        <h2>yesterday</h2>
+      </article>
+      <article id="today" class="selected">
+        <h2>today</h2>
+      </article>
+      <article class="tomorrow">
+        <h2>tomorrow</h2>
+      </article>
+      <article class="later">
+        <h2>next week</h2>
+      </article>
+      <article class="later">
+        <h2>next pay</h2>
+      </article>
+      <article class="muchlater">
+        <h2>next month</h2>
+        <p>
+          and this should be the contenteditable stuff
+        </p>
+      </article>
+      <article class="muchlater">
+        <h2>much later</h2>
+        <p>
+          and this should be the contenteditable stuff
+        </p>
+      </article>
+    </section>
+    <script src="zepto.js"></script>
+    <script charset="utf-8">
+      $('article').click(function (e) {
+        $('.selected').removeClass('selected');
+        $(this).addClass('selected');
+      });
+    </script>
+  </body>
+</html>
