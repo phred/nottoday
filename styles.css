@@ -18,6 +18,8 @@ article {
   display: inline-block;
   height: 30rem;
   vertical-align: bottom;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
   transition: all 0.2s ease;
   padding: 5px;
   line-height: 24px; }
@@ -25,7 +27,13 @@ article {
     background-color: #51d4bc !important;
     margin-bottom: 10px; }
   article h2 {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    -webkit-transform-origin: 0 0 0;
+    -moz-transform-origin: 0 0 0;
+    -ms-transform-origin: 0 0 0;
+    -o-transform-origin: 0 0 0;
     transform-origin: 0 0 0; }
   article .tasks {
     white-space: normal;
@@ -57,6 +65,10 @@ article:not(.selected) {
   padding-top: 2rem;
   cursor: pointer; }
   article:not(.selected) h2 {
+    -webkit-transform: rotate(90deg) translateY(-1.5em);
+    -moz-transform: rotate(90deg) translateY(-1.5em);
+    -ms-transform: rotate(90deg) translateY(-1.5em);
+    -o-transform: rotate(90deg) translateY(-1.5em);
     transform: rotate(90deg) translateY(-1.5em);
     white-space: nowrap; }
   article:not(.selected) .tasks {
@@ -79,5 +91,9 @@ article .tasks {
     padding-top: 0;
     cursor: pointer; }
     .selected + article:not(.selected) h2 {
+      -webkit-transform: none;
+      -moz-transform: none;
+      -ms-transform: none;
+      -o-transform: none;
       transform: none;
       white-space: nowrap; }
