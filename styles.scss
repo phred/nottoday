@@ -5,8 +5,11 @@
   background-color: $pageBackground;
   color: $textColor;
   font-family: $font;
-  height: 100%;
   overflow: hidden;
+  body {
+    padding: 0;
+    margin: 0;
+  }
 }
 
 @mixin flip {
@@ -33,10 +36,10 @@ $height: 30rem;
 
 section {
   padding-top: 120px;
-  // background-color: $tomorrow;
   line-height: $height * 1.4;
   margin-top: -$height*0.2;
   white-space: nowrap;
+  overflow: hidden;
   overflow-x: scroll;
 }
 
@@ -52,7 +55,6 @@ article {
 
   &:hover {
     background-color: lighten($today, 10%) !important;
-    // padding-top: 10px;
     margin-bottom: 10px;
   }
 
@@ -62,13 +64,14 @@ article {
   }
   .tasks {
     white-space: normal;
-    overflow-y: scroll;
+    overflow: none;
+    overflow-y: auto;
   }
 }
 
 
 .yesterday {
-  background-color:  $yesterday;
+  background-color:  darken($yesterday, 5);
 }
 
 .today {
@@ -80,16 +83,21 @@ article {
   height: $height * 1.1;
 }
 
-.later {
+.later, .baconday, .enrichment, .nextweek, .nextpay {
   background-color: $later;
   height: $height * 1.1;
   & + & {
     height: $height * 0.8;
-    // width: $width / 2;
+  }
+  & + & + & {
+    height: $height * 0.6;
+  }
+  & + & + & + & {
+    height: $height * 0.7;
   }
 }
 
-.muchlater {
+.muchlater, .nextmonth {
   background-color: $muchlater;
   height: $height * 0.8;
   width: $width/2;
@@ -111,7 +119,10 @@ article:not(.selected) {
 }
 
 article .tasks {
-  height: 28em;
+  height: 85%;
+  &:focus {
+    border: none;
+  }
 }
 
 .selected {
